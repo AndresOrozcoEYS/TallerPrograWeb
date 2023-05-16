@@ -4,23 +4,18 @@ const jwt = require("jsonwebtoken")
 
 exports.create = async (req, res, next) => {
   try {
-    const sede = new Sede({
+    const user = new User({
       name: req.body.name,
-      phone: req.body.phone,
-      location: req.body.location,
-      city: req.body.city,
-      address: req.body.address,
-      owners: req.body.owners,
-      zipcode: req.body.zipcode,
+      lastname: req.body.lastname,
+      username: req.body.username,
+      identification: req.body.identification,
+      password: req.body.password,
       active: true,
     });
 
-    await sede.save();
-      owner.sedes.push(sede._id);
-      await owner.save();
-    
+    await user.save();
 
-    res.send({ status: "OK", message: "Sede created successfully" });
+    res.send({ status: "OK", message: "User created successfully" });
   } catch (error) {
     next(error);
   }
@@ -71,9 +66,6 @@ exports.logout = (req, res, next) => {
 
   // Ejemplo con cookies:
   res.clearCookie("sessionToken");
-
-  // Ejemplo con tokens almacenados en localStorage:
-  localStorage.removeItem("sessionToken");
 
   res.send({ message: "Logout successful" });
 };
